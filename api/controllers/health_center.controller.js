@@ -8,15 +8,15 @@ const healthController = {};
 // Find only one Health center filtering by id
 // this no validate "status"
 healthController.getHealth = async(req, res) => {
-    const health = await healthModel.findById(req.params.id).exec((err, healthFind) => {
+    await healthModel.findById(req.params.id).exec((err, healthFind) => {
         if (err) return res.status(500).json({ status: 'Error in the request' });
-        res.status(200).json(health);
+        res.status(200).json(healthFind);
     });
 };
 
 // Find alls Health Centers whit "status" true
 healthController.getHealths = (req, res) => {
-    const healths = healthModel.find({ status: true }).exec((err, healthFind) => {
+    healthModel.find({ status: true }).exec((err, healthFind) => {
         if (err) return res.status(500).json({ status: 'Error in the request' });
         res.status(200).json(healthFind);
     });
@@ -66,8 +66,6 @@ healthController.editHealth = async(req, res) => {
 
     await healthModel.findByIdAndUpdate(id, { $set: health }, { new: true }); // El new: true es para que cree el dato si no existe
     res.status(200).json({ status: 'Health Update' });
-
-    // https://www.hacksparrow.com/handle-file-uploads-in-express-node-js.html
 };
 
 // Delete Health Center
@@ -87,30 +85,30 @@ healthController.uploadAvatar = (req, res) => {
         var ext_split = file_name.split('\.');
         var file_ext = ext_split[1];
 
-        //El usuario que se recibe por la URL debe ser el mismo del onjeto del token; el usuario identificado
+        //El usuario que se recibe por la URL debe ser el mismo del objeto del token; el usuario identificado
         // if (healthId != req.user.sub) {
         // 	return removeFilesOfUploads(res, file_path, 'No tienes permiso para actualizar los datos del usuario');
         // }
 
         if (file_ext == 'png' || file_ext == 'jpg' || file_ext == 'jpeg' || file_ext == 'gif') {
             healthModel.findByIdAndUpdate(healthId, { avatar: file_name }, { new: true }, (err, healthUpdate) => {
-                if (err) return removeFilesOfUploads(res, file_path, 'Error en la petición');
+                if (err) return removeFilesOfUploads(res, file_path, 'Error in the request');
 
-                if (!healthUpdate) return res.status(404).send({ message: 'No se ha podido actualizar el usuario' });
+                if (!healthUpdate) return res.status(404).send({ message: 'No is possible update the health center' });
 
-                return res.status(200).send({ health: healthUpdate });
+                return res.status(200).json({ health: healthUpdate });
             });
         } else {
-            return removeFilesOfUploads(res, file_path, 'Extensión no válida');
+            return removeFilesOfUploads(res, file_path, 'Extension is no valid');
         }
     } else {
-        return res.status(200).send({ message: 'No se han enviado imagenes' });
+        return res.status(200).json({ message: 'Avatar no send' });
     }
 };
 
 function removeFilesOfUploads(res, file_path, message) {
     fs.unlink(file_path, (err) => {
-        return res.status(200).send({ message: message });
+        return res.status(200).json({ message: message });
     });
 }
 

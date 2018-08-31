@@ -3,7 +3,7 @@ var healthController = require('../controllers/health_center.controller');
 var router = express.Router();
 
 var multiparty = require('connect-multiparty');
-var md_upload = multiparty({ uploadDir: './uploads/health_center' });
+var md_upload = multiparty({ uploadDir: './uploads/health_center_avatar' });
 
 router.get('/', healthController.getHealths);
 router.post('/', healthController.createHealth);
