@@ -39,15 +39,27 @@ employeeController.createEmployee = (req, res) => {
 // Edit an existing employee
 employeeController.editEmployee = async(req, res) => {
     const idEmployee = req.params.id;
+    const employee = {
+        name: req.body.name,
+        last_name: req.body.last_name,
+        email: req.body.email,
+        phone: req.body.phone,
+        cell_phone: req.body.cell_phone,
+        status: rew.body.status,
+        rol: req.body.rol
+    }
 
-    await employeeModel.findByIdAndUpdate(idEmployee, { $set: req.body }, { new: true });
+    await employeeModel.findByIdAndUpdate(idEmployee, { $set: employee });
     res.status(200).json({ status: 'Employee update' });
 };
 
 // Delete an existing employee
 employeeController.deleteEmployee = async(req, res) => {
-    await employeeModel.findByIdAndRemove(req.params.id);
-    return res.status(200).json({ status: 'Employee Deleted' });
+    await employeeModel.findByIdAndRemove(req.params.id).exec((err) => {
+        if (err) return res.status(500).json({ status: 'Error in the request' });
+
+        return res.status(200).json({ status: 'Employee Deleted' });
+    });
 };
 
 // Upload Employee's avatar
@@ -86,5 +98,6 @@ function removeFilesOfUploads(res, file_path, message) {
     fs.unlink(file_path, (err) => {
         return res.status(200).json({ message: message });
     });
-};
+}
+
 module.exports = employeeController;
