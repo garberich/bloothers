@@ -1,4 +1,6 @@
 var employeeModel = require('../models/employee');
+var path = require('path');
+var fs = require('fs');
 
 const employeeController = {};
 
@@ -97,6 +99,19 @@ employeeController.uploadAvatar = (req, res) => {
 function removeFilesOfUploads(res, file_path, message) {
     fs.unlink(file_path, (err) => {
         return res.status(200).json({ message: message });
+    });
+}
+
+employeeController.downloadAvatar = (req, res) => {
+    var imagefile = req.params.imagefile;
+    var pathFile = './uploads/employee_avatar' + imagefile;
+
+    fs.exists(pathFile, (exists) => {
+        if (exists) {
+            res.sendFile(path.resolve(pathFile));
+        } else {
+            res.status(200).json({ message: 'Avatar no found' });
+        }
     });
 }
 

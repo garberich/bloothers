@@ -112,4 +112,17 @@ function removeFilesOfUploads(res, file_path, message) {
     });
 }
 
+healthController.downloadAvatar = (req, res) => {
+    var imageFile = req.params.imageFile;
+    var pathFile = './uploads/health_center_avatar/' + imageFile;
+
+    fs.exists(pathFile, (exists) => {
+        if (exists) {
+            res.sendFile(path.resolve(pathFile));
+        } else {
+            res.status(200).json({ message: 'Avatar no found' });
+        }
+    });
+}
+
 module.exports = healthController;

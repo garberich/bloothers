@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var { Schema } = require('mongoose');
-// Falta agregar Achievement y Donation
+var Achievement = require('./achievement');
+var Donation = require('./donation');
 
 var UserSchema = new Schema({
     name: { type: String, required: true },
@@ -19,7 +20,7 @@ var UserSchema = new Schema({
     Achievement: { type: [Achievement] },
     Donation: { type: [Donation] },
     number_points: { type: Number },
-    created_date: { type: Date, required: true },
+    created_date: { type: Date, default: Date.now },
     status: { type: Boolean, required: true },
     rol: { type: String, required: true }
 });

@@ -10,5 +10,6 @@ router.post('/', employee.createEmployee);
 router.put('/:id', employee.editEmployee);
 router.delete('/:id', employee.deleteEmployee);
 router.post('/upload-avatar/:id', md_upload, employee.uploadAvatar);
+router.get('/download-avatar/:imageFile', employee.downloadAvatar);
 
 module.exports = router;

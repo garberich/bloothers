@@ -11,6 +11,7 @@ router.get('/:id', healthController.getHealth);
 router.put('/:id', healthController.editHealth);
 router.delete('/:id', healthController.deleteHealth);
 router.post('/upload-avatar/:id', md_upload, healthController.uploadAvatar);
+router.get('/download-avatar/:imageFile', healthController.downloadAvatar);
 router.get('/get-employee/:id', healthController.getEmployees);
 
 module.exports = router;
