@@ -1,7 +1,5 @@
 var mongoose = require('mongoose');
 var { Schema } = require('mongoose');
-var Achievement = require('./achievement');
-var Donation = require('./donation');
 
 var UserSchema = new Schema({
     name: { type: String, required: true },
@@ -17,8 +15,8 @@ var UserSchema = new Schema({
     document_number: { type: Number, required: true },
     blood_type: { type: String, required: true },
     RH: { type: String, required: true },
-    Achievement: { type: [Achievement] },
-    Donation: { type: [Donation] },
+    Achievement: { type: [mongoose.SchemaTypes.ObjectId], ref: 'Achievement' },
+    Donation: { type: [mongoose.SchemaTypes.ObjectId], ref: 'Donation' },
     number_points: { type: Number },
     created_date: { type: Date, default: Date.now },
     status: { type: Boolean, required: true },

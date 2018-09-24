@@ -1,9 +1,8 @@
 var mongoose = require('mongoose');
 var { Schema } = require('mongoose');
-var HealtCenter = require('./health_center');
 
 var campaignSchema = new Schema({
-    id_health_center: { type: HealtCenter, required: true },
+    id_health_center: { type: mongoose.Schema.Types.ObjectId, ref: 'Health_Center', required: true },
     name: { type: String, required: true },
     description: { type: String, required: true },
     images: { type: [String], required: false }, // images.push("imagen1");

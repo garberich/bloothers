@@ -13,6 +13,7 @@ app.use(express.json());
 // Cargar rutas
 app.use('/api/health_center', require('./routes/health_center.routes'));
 app.use('/api/employee', require('./routes/employee.routes'));
+app.use('/api/user', require('./routes/user.routes'));
 
 // Cors
 
