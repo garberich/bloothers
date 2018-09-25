@@ -84,9 +84,9 @@ employeeController.uploadAvatar = (req, res) => {
             employeeModel.findByIdAndUpdate(employeeId, { avatar: file_name }, { new: true }, (err, employeeUpdate) => {
                 if (err) return removeFilesOfUploads(res, file_path, 'Error in the request');
 
-                if (!employeeUpdate) return res.status(404).send({ message: 'No is possible update the employee' });
+                if (!employeeUpdate) return res.status(404).send({ status: 'No is possible update the employee' });
 
-                return res.status(200).json({ health: employeeUpdate });
+                return res.status(200).json({ employee: employeeUpdate });
             });
         } else {
             return removeFilesOfUploads(res, file_path, 'Extension is no valid');
@@ -98,7 +98,7 @@ employeeController.uploadAvatar = (req, res) => {
 
 function removeFilesOfUploads(res, file_path, message) {
     fs.unlink(file_path, (err) => {
-        return res.status(200).json({ message: message });
+        return res.status(200).json({ status: message });
     });
 };
 

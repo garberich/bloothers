@@ -94,7 +94,7 @@ healthController.uploadAvatar = (req, res) => {
             healthModel.findByIdAndUpdate(healthId, { avatar: file_name }, { new: true }, (err, healthUpdate) => {
                 if (err) return removeFilesOfUploads(res, file_path, 'Error in the request');
 
-                if (!healthUpdate) return res.status(404).send({ message: 'No is possible update the health center' });
+                if (!healthUpdate) return res.status(404).send({ status: 'No is possible update the health center' });
 
                 return res.status(200).json({ health: healthUpdate });
             });
@@ -102,13 +102,13 @@ healthController.uploadAvatar = (req, res) => {
             return removeFilesOfUploads(res, file_path, 'Extension is no valid');
         }
     } else {
-        return res.status(200).json({ message: 'Avatar no send' });
+        return res.status(200).json({ status: 'Avatar no send' });
     }
 };
 
 function removeFilesOfUploads(res, file_path, message) {
     fs.unlink(file_path, (err) => {
-        return res.status(200).json({ message: message });
+        return res.status(200).json({ status: message });
     });
 }
 

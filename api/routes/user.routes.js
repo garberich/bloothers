@@ -13,5 +13,6 @@ router.put('/:id', userController.editUser);
 router.delete('/:id', userController.deleteUser);
 router.post('/upload-avatar/:id', md_upload, userController.uploadAvatar);
 router.get('/download-avatar/:imageFile', userController.downloadAvatar);
+router.post('/add-achievement/', userController.addAchievement);
 
 module.exports = router;

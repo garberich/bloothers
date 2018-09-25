@@ -84,9 +84,9 @@ userController.uploadAvatar = (req, res) => {
             UserModel.findByIdAndUpdate(userId, { avatar: file_name }, { new: true }, (err, userUpdate) => {
                 if (err) return removeFilesOfUploads(res, file_path, 'Error in the request');
 
-                if (!userUpdate) return res.status(404).send({ message: 'No is possible update the user' });
+                if (!userUpdate) return res.status(404).send({ status: 'No is possible update the user' });
 
-                return res.status(200).json({ health: userUpdate });
+                return res.status(200).json({ user: userUpdate });
             });
         } else {
             return removeFilesOfUploads(res, file_path, 'Extension is no valid');
@@ -98,7 +98,7 @@ userController.uploadAvatar = (req, res) => {
 
 function removeFilesOfUploads(res, file_path, message) {
     fs.unlink(file_path, (err) => {
-        return res.status(200).json({ message: message });
+        return res.status(200).json({ status: message });
     });
 };
 
@@ -112,6 +112,25 @@ userController.downloadAvatar = (req, res) => {
         } else {
             res.status(200).json({ status: 'Avatar not found' });
         }
+    });
+};
+
+userController.addAchievement = (req, res) => {
+    let idUser = req.body.iduser;
+    let idAchievement = req.body.idachievement;
+
+    UserModel.findById(idUser).exec((err, userFind) => {
+        if (err) return res.status(500).json({ status: 'Error in the request' });
+
+        userFind.Achievement.push(idAchievement);
+
+        UserModel.findByIdAndUpdate(idUser, { Achievement: userFind.Achievement }, { new: true }, (err, userUpdate) => {
+            if (err) return res.status(505).json({ status: 'Error in the request' });
+
+            if (!userUpdate) return res.status(404).send({ status: 'No is possible update the user' });
+
+            return res.status(200).json({ user: userUpdate });
+        });
     });
 };
 
