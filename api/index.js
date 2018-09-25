@@ -14,6 +14,7 @@ app.use(express.json());
 app.use('/api/health_center', require('./routes/health_center.routes'));
 app.use('/api/employee', require('./routes/employee.routes'));
 app.use('/api/user', require('./routes/user.routes'));
+app.use('/api/achievement', require('./routes/achievement.routes'));
 
 // Cors
 

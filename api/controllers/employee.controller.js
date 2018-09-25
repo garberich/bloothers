@@ -39,16 +39,16 @@ employeeController.createEmployee = (req, res) => {
 };
 
 // Edit an existing employee
+// This method is only for employee use
 employeeController.editEmployee = async(req, res) => {
-    const idEmployee = req.params.id;
-    const employee = {
+    let idEmployee = req.params.id;
+    let employee = {
         name: req.body.name,
         last_name: req.body.last_name,
-        email: req.body.email,
+        city: req.body.city,
+        password: req.body.password,
         phone: req.body.phone,
-        cell_phone: req.body.cell_phone,
-        status: rew.body.status,
-        rol: req.body.rol
+        cell_phone: req.body.cell_phone
     }
 
     await employeeModel.findByIdAndUpdate(idEmployee, { $set: employee });
@@ -66,7 +66,7 @@ employeeController.deleteEmployee = async(req, res) => {
 
 // Upload Employee's avatar
 employeeController.uploadAvatar = (req, res) => {
-    var employeeId = req.params.id;
+    let employeeId = req.params.id;
 
     if (req.files) {
         var file_path = req.files.image.path;
@@ -92,7 +92,7 @@ employeeController.uploadAvatar = (req, res) => {
             return removeFilesOfUploads(res, file_path, 'Extension is no valid');
         }
     } else {
-        return res.status(200).json({ message: 'Avatar no send' });
+        return res.status(200).json({ status: 'Avatar no send' });
     }
 };
 
@@ -100,19 +100,19 @@ function removeFilesOfUploads(res, file_path, message) {
     fs.unlink(file_path, (err) => {
         return res.status(200).json({ message: message });
     });
-}
+};
 
 employeeController.downloadAvatar = (req, res) => {
-    var imagefile = req.params.imagefile;
-    var pathFile = './uploads/employee_avatar' + imagefile;
+    let imagefile = req.params.imageFile;
+    let pathFile = './uploads/employee_avatar/' + imagefile;
 
     fs.exists(pathFile, (exists) => {
         if (exists) {
             res.sendFile(path.resolve(pathFile));
         } else {
-            res.status(200).json({ message: 'Avatar no found' });
+            res.status(200).json({ status: 'Avatar not found' });
         }
     });
-}
+};
 
 module.exports = employeeController;

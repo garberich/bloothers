@@ -1,3 +1,4 @@
 node_modules/
-uploads/health_center_avatar/
-uploads/employee_avatar/
+api/uploads/health_center_avatar/*
+api/uploads/employee_avatar/*
+api/uploads/user_avatar/*

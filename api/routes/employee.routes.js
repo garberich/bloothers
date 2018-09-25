@@ -6,6 +6,7 @@ var multiparty = require('connect-multiparty');
 var md_upload = multiparty({ uploadDir: './uploads/employee_avatar' });
 
 router.get('/:id', employee.getEmployee);
+router.get('/', employee.getEmployees);
 router.post('/', employee.createEmployee);
 router.put('/:id', employee.editEmployee);
 router.delete('/:id', employee.deleteEmployee);
