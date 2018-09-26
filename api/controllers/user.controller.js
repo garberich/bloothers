@@ -1,6 +1,6 @@
-var UserModel = require('../models/user');
-var fs = require('fs');
-var path = require('path');
+const UserModel = require('../models/user');
+const fs = require('fs');
+const path = require('path');
 
 const userController = {};
 
