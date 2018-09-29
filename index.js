@@ -5,14 +5,14 @@ var app = express();
 var { mongoose } = require('./database');
 
 // settings
-app.set('port', process.env.PORT || 3800);
+var port = process.env.PORT || 8000;
 
 // Middlewares
 app.use(express.json());
 
 // Cargar rutas
-app.use('/api/health_center', require('./routes/health_center.routes'));
-app.use('/api/employee', require('./routes/employee.routes'));
+app.get('/api/health_center', require('./routes/health_center'));
+app.get('/api/employee', require('./routes/employee'));
 
 // Cors
 
@@ -24,9 +24,6 @@ app.use('/api/employee', require('./routes/employee.routes'));
 // });
 
 // Crear servidor
-app.listen(app.get('port'), () => {
+app.listen(port, () => {
     console.log('Servidor corriendo');
 });
-
-// Exportar
-module.exports = app;

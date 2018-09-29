@@ -2,7 +2,5 @@
  applications:
  - name: bloothers-api
    routes:
-   - route: bloothers.api.mybluemix.net
+   - route: bloothers-api.mybluemix.net
    memory:  128M
-   services:
-     - mongoDB-bloothers
