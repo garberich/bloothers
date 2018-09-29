@@ -25,5 +25,5 @@ app.get('/api/employee', require('./routes/employee'));
 
 // Crear servidor
 app.listen(port, () => {
-    console.log('Servidor corriendo');
+    console.log('Servidor corriendo en puerto ' + port);
 });
