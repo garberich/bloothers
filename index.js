@@ -1,18 +1,22 @@
 'use strict'
-require("dotenv").config()
+
 var express = require('express');
 var app = express();
 var { mongoose } = require('./database');
 
 // settings
-var port = process.env.PORT || 8000;
+app.set('port', process.env.PORT || 3800);
 
 // Middlewares
 app.use(express.json());
 
 // Cargar rutas
-app.get('/api/health_center', require('./routes/health_center'));
-app.get('/api/employee', require('./routes/employee'));
+app.use('/api/health_center', require('./routes/health_center.routes'));
+app.use('/api/employee', require('./routes/employee.routes'));
+app.use('/api/user', require('./routes/user.routes'));
+app.use('/api/achievement', require('./routes/achievement.routes'));
+app.use('/api/donation_type', require('./routes/donation_type.routes'));
+app.use('/api/campaign', require('./routes/campaign.routes'));
 
 // Cors
 
@@ -24,6 +28,9 @@ app.get('/api/employee', require('./routes/employee'));
 // });
 
 // Crear servidor
-app.listen(port, () => {
-    console.log('Servidor corriendo');
+app.listen(app.get('port'), () => {
+    console.log('Servidor corriendo en ' + app.get('port'));
 });
+
+// Exportar
+module.exports = app;

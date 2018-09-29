@@ -1,3 +1,4 @@
+require('dotenv').config();
 var mongoose = require('mongoose');
 // const URI = 'mongodb://localhost/bloothers';
 const URI = process.env.DATABASE_URI;

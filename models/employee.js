@@ -14,7 +14,7 @@ var EmployeeSchema = new Schema({
     cell_phone: { type: Number, required: false },
     avatar: { type: String, required: false },
     document_number: { type: Number, required: true },
-    created_date: { type: Date, required: true },
+    created_date: { type: Date, default: Date.now },
     status: { type: Boolean, required: true },
     rol: { type: String, required: true }
 });
