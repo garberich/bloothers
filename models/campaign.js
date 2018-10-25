@@ -10,6 +10,9 @@ var campaignSchema = new Schema({
     finish_date: { type: Date, required: false },
     points: { type: Number, required: false },
     quantity_target: { type: Number, required: false },
+    adress: { type: String, required: false },
+    lng: { type: Number, required: false },
+    ltd: { type: Number, required: false },
     status: { type: Boolean, required: true }
 });
 
