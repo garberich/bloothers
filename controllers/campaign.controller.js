@@ -66,20 +66,21 @@ campaignController.uploadImages = async(req, res) => {
             ext_split = file_name.split('\.');
             file_ext = ext_split[1];
 
-            var new_path = `${file_split[0]}\\${file_split[1]}\\${campaignFind._id}\\${file_name}`;
+            // var new_path = `${file_split[0]}\\${file_split[1]}\\${campaignFind._id}\\${file_name}`;
+            var new_path = `${file_split[0]}\\${file_split[1]}\\images\\${file_name}`;
+
             //El usuario que se recibe por la URL debe ser el mismo del objeto del token; el usuario identificado
             // if (campaignId != req.user.sub) {
             // 	return removeFilesOfUploads(res, file_path, 'No tienes permiso para actualizar los datos del usuario');
             // }
 
             if (file_ext == 'png' || file_ext == 'jpg' || file_ext == 'jpeg') {
+                renameFiles(res, file_path, new_path);
                 campaignFind.images.push(file_name);
             } else {
                 return removeFilesOfUploads(res, file_path, 'Extension is no valid');
             }
         }
-
-        renameFiles(res, file_path, new_path);
 
         campaignFind.save((err, campaignFind) => {
             if (err) return removeFilesOfUploads(res, file_path, 'Error in the request');
