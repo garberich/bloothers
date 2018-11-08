@@ -4,7 +4,7 @@ var { Schema } = require('mongoose');
 var HealthCenterSchema = new Schema({
     name: { type: String, required: true },
     description: { type: String, required: true },
-    created_date: { type: Date, required: true },
+    created_date: { type: Date, default: Date.now },
     city: { type: String, required: true },
     email: { type: String, required: true },
     phone: { type: Number, required: false },

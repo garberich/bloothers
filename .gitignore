@@ -1,3 +1,5 @@
 node_modules/
 uploads/health_center_avatar/*
 uploads/employee_avatar/*
+uploads/user_avatar/*
+uploads/campaign_images/*

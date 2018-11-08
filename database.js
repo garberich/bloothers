@@ -1,6 +1,7 @@
+require('dotenv').config();
 var mongoose = require('mongoose');
-// const URI = 'mongodb://localhost/bloothers';
-const URI = process.env.DATABASE_URI;
+const URI = 'mongodb://localhost/bloothers';
+// const URI = process.env.DATABASE_URI;
 
 mongoose.connect(URI)
     .then(db => console.log('DB is connected'))
