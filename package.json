@@ -7,7 +7,9 @@
         "start": "node index.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "engines" : { "node" : ">=8" },
+    "engines": {
+        "node": ">=8"
+    },
     "author": "Richard García",
     "license": "ISC",
     "dependencies": {
