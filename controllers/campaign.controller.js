@@ -53,6 +53,7 @@ campaignController.uploadImages = async(req, res) => {
         var ext_split = "";
         var file_ext = "";
 
+        // Find the register for update the images in BD
         let campaignFind = await campaignModel.findById(campaignId);
 
         let totalImages = (req.files.image.length) ? req.files.image.length : 1;
@@ -67,7 +68,7 @@ campaignController.uploadImages = async(req, res) => {
             file_ext = ext_split[1];
 
             // var new_path = `${file_split[0]}\\${file_split[1]}\\${campaignFind._id}\\${file_name}`;
-            var new_path = `${file_split[0]}\\${file_split[1]}\\images\\${file_name}`;
+            var new_path = `${file_split[0]}\\${file_split[1]}\\${campaignId}\\images\\${file_name}`;
 
             //El usuario que se recibe por la URL debe ser el mismo del objeto del token; el usuario identificado
             // if (campaignId != req.user.sub) {
@@ -75,7 +76,7 @@ campaignController.uploadImages = async(req, res) => {
             // }
 
             if (file_ext == 'png' || file_ext == 'jpg' || file_ext == 'jpeg') {
-                renameFiles(res, file_path, new_path);
+                renameFiles(res, file_path, new_path, file_path);
                 campaignFind.images.push(file_name);
             } else {
                 return removeFilesOfUploads(res, file_path, 'Extension is no valid');
@@ -100,7 +101,23 @@ function removeFilesOfUploads(res, file_path, message) {
     });
 };
 
-function renameFiles(res, old_path, new_path) {
+function renameFiles(res, old_path, new_path, file_path) {
+    // Identify if de path exists. If no exists create the new path
+    var file_split = file_path.split('\\');
+    var campaign_path = `${file_split[0]}\\${file_split[1]}\\${campaignId}`;
+
+    // TODO - Revisar https://stackoverflow.com/questions/21194934/node-how-to-create-a-directory-if-doesnt-exist
+    if (fs.existsSync(campaign_path)) {
+        fs.mkdirSync(campaign_path);
+    };
+
+    // fs.exists(campaign_path, (exists) => {
+    //     if (!exists) {
+
+    //     }
+    // });
+
+
     fs.rename(old_path, new_path, (err) => {
         if (err) {
             return removeFilesOfUploads(res, old_path, 'Is not possible save the image');
